@@ -27,62 +27,62 @@ import org.junit.Test;
  */
 public class SimpleTransformBlueprintTest extends CamelBlueprintTestSupport {
 
-    @Override
-    protected String getBlueprintDescriptor() {
-        return "OSGI-INF/blueprint/simpleTransform-context.xml," +
-            "OSGI-INF/blueprint/simpleTransform-properties-context.xml";
-    }
+  @Override
+  protected String getBlueprintDescriptor() {
+    return "OSGI-INF/blueprint/simpleTransform-context.xml,"
+         + "OSGI-INF/blueprint/simpleTransform-properties-context.xml";
+  }
 
-    @Override
-    public boolean isUseAdviceWith() {
-        return true;
-    }
+  @Override
+  public boolean isUseAdviceWith() {
+    return true;
+  }
 
-    @Test
-    public void testPayloadIsTransformed() throws Exception {
-        context.getRouteDefinition("blueprintPropertiesTest")
-            .adviceWith(context, new AdviceWithRouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    replaceFromWith("direct:in");
+  @Test
+  public void testPayloadIsTransformed() throws Exception {
+    context.getRouteDefinition("blueprintPropertiesTest")
+        .adviceWith(context, new AdviceWithRouteBuilder() {
+          @Override
+          public void configure() throws Exception {
+            replaceFromWith("direct:in");
 
-                    interceptSendToEndpoint("log:*")
-                        .skipSendToOriginalEndpoint()
-                        .to("mock:out");
-                }
-            });
-        context.start();
+            interceptSendToEndpoint("log:*")
+                .skipSendToOriginalEndpoint()
+                .to("mock:out");
+          }
+        });
+    context.start();
 
-        MockEndpoint mockOut = getMockEndpoint("mock:out");
-        mockOut.setExpectedMessageCount(1);
-        mockOut.message(0).body().isEqualTo("Modified: Cheese");
+    MockEndpoint mockOut = getMockEndpoint("mock:out");
+    mockOut.setExpectedMessageCount(1);
+    mockOut.message(0).body().isEqualTo("Modified: Cheese");
 
-        template.sendBody("direct:in", "Cheese");
+    template.sendBody("direct:in", "Cheese");
 
-        assertMockEndpointsSatisfied();
-    }
+    assertMockEndpointsSatisfied();
+  }
 
-    @Test
-    public void testPayloadIsTransformedAgain() throws Exception {
-        context.getRouteDefinition("blueprintPropertiesTest")
-            .adviceWith(context, new AdviceWithRouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    replaceFromWith("direct:in");
+  @Test
+  public void testPayloadIsTransformedAgain() throws Exception {
+    context.getRouteDefinition("blueprintPropertiesTest")
+        .adviceWith(context, new AdviceWithRouteBuilder() {
+          @Override
+          public void configure() throws Exception {
+            replaceFromWith("direct:in");
 
-                    interceptSendToEndpoint("log:*")
-                        .skipSendToOriginalEndpoint()
-                        .to("mock:out");
-                }
-            });
-        context.start();
+            interceptSendToEndpoint("log:*")
+                .skipSendToOriginalEndpoint()
+                .to("mock:out");
+          }
+        });
+    context.start();
 
-        MockEndpoint mockOut = getMockEndpoint("mock:out");
-        mockOut.setExpectedMessageCount(1);
-        mockOut.message(0).body().isEqualTo("Modified: Foo");
+    MockEndpoint mockOut = getMockEndpoint("mock:out");
+    mockOut.setExpectedMessageCount(1);
+    mockOut.message(0).body().isEqualTo("Modified: Foo");
 
-        template.sendBody("direct:in", "Foo");
+    template.sendBody("direct:in", "Foo");
 
-        assertMockEndpointsSatisfied();
-    }
+    assertMockEndpointsSatisfied();
+  }
 }
