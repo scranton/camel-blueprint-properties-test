@@ -26,7 +26,7 @@
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
     <route id="blueprintPropertiesTest">
-      <from uri="timer://test?fixedRate=true&amp;period=60000"/>
+      <from uri="timer://test?fixedRate=true&amp;period=2000"/>
       <transform>
         <simple>{{transform.message}}: ${body}</simple>
       </transform>
