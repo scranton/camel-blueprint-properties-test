@@ -4,7 +4,7 @@ properties can be updated
 
 Requirements:
 
-* Apache Karaf 2.4.x (http://karaf.apache.org/)
+* Apache Karaf 4.x (http://karaf.apache.org/)
 * Maven 3.x (http://maven.apache.org/)
 * Java SE 7
 
@@ -21,15 +21,15 @@ To run:
 3) Add this projects features.xml config to Apache Karaf from the Karaf
    Console (makes it easier to install OSGi bundles with all required dependencies)
 
-    karaf@root> features:addurl mvn:org.camelcookbook.blueprint/features/1.0-SNAPSHOT/xml/features
+    karaf@root()> feature:repo-add mvn:org.camelcookbook.blueprint/features/1.0-SNAPSHOT/xml/features
 
 4) Install the test bundle
 
-    karaf@root> features:install blueprint-properties-test1
+    karaf@root()> feature:install blueprint-properties-test1
 
 5) To see what is happening look at the Apache Karaf log file, either from the console
 
-    karaf@root> log:display
+    karaf@root()> log:display
 
    or from the command line
 
@@ -42,18 +42,18 @@ Camel is using as the prefix string for the message its printing out.
 
 1) Start a properties editing session
 
-    karaf@root> config:edit org.camelcookbook.testing
+    karaf@root()> config:edit org.camelcookbook.testing
 
 2) Set the value of the property used as the message prefix. The following sets it to the value
    of 'Override', and you can use any value you like
 
-    karaf@root> config:propset transform.message Override
+    karaf@root()> config:property-set transform.message Override
  
 3) Update the property set, which pushes the properties to our deployed Camel test application,
    and that will trigger the OSGi to reload based on the update-strategy we set in the
    Blueprint XML file.
 
-    karaf@root> config:update
+    karaf@root()> config:update
 
 If everything worked correctly, you should see in the log that Karaf has restarted the Camel
 test application and it should be now using your new property value, e.g. 'Override', for the
