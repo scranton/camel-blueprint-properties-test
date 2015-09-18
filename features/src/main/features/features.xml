@@ -17,7 +17,10 @@
   ~ limitations under the License.
   -->
 
-<features name="blueprint-properties-base-${project.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.3.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0"
+          name="blueprint-properties-base-${project.version}">
   <repository>mvn:org.apache.camel.karaf/apache-camel/${camel-version}/xml/features</repository>
 
   <feature name="blueprint-properties-test1" description="Blueprint Properties" version="${project.version}">
