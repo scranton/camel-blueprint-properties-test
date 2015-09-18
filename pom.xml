@@ -32,7 +32,7 @@
   </modules>
 
   <properties>
-    <camel-version>2.15.4-SNAPSHOT</camel-version>
+    <camel-version>2.16-SNAPSHOT</camel-version>
 
     <aries-blueprint-api-version>1.0.1</aries-blueprint-api-version>
     <aries-blueprint-core-version>1.4.4</aries-blueprint-core-version>
